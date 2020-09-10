@@ -1,4 +1,5 @@
-DTRACE := dtrace
+PROBES_TXT := probes.txt
+DTRACE := sudo dtrace
 
 .PHONY: hello
 hello:
@@ -6,16 +7,24 @@ hello:
 
 .PHONY: trace_shell_io
 trace_shell_io:
-	$(DTRACE) -s io.d
+	$(DTRACE) -q -s io.d
 
-.PHONY: list_probes
-list_probes:
-	$(DTRACE) -l
+.PHONY: time_reads
+time_reads:
+	$(DTRACE) -q -s time_reads.d
 
-.PHONY: report_connect_args
-report_connect_args:
+$(PROBES_TXT):
+	$(DTRACE) -l > $(PROBES_TXT)
+
+.PHONY: list_connect_args
+list_connect_args:
 	$(DTRACE) -lv \
 		-i syscall::connect_nocancel:entry \
 		-i syscall::connect_nocancel:return \
 		-i syscall::connect:entry \
 		-i syscall::connect:return
+
+.PHONY: list_dtrace_consumers
+list_dtrace_consumers:
+	apropos dtrace
+

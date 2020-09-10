@@ -1,4 +1,4 @@
 BEGIN {
-    trace("Hello, World!");
-    exit(0);
+    printf("pid %d tracing", pid);
+    // exit(0);
 }

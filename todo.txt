@@ -1,0 +1,1 @@
+- look at existing dtrace consumers with apropos dtrace to see how things are done
