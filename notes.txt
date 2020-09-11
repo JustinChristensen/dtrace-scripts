@@ -1,0 +1,42 @@
+To access user-space memory with system call pointers I need to apply one of copyin, copyinstr, or copyinto
+on the user-space pointer.
+
+struct foo {
+    ...
+};
+
+// assoc array  string -> struct foo
+struct foo foos[string];
+
+
+BEGIN {
+}
+
+syscall::foo:bar,
+syscall::baz:bing
+/predicate/
+{
+    foos[probefunc].i++;
+}
+
+END {
+}
+
+access kernel variables with '`'
+
+actions can set thread-local variables, marking them of interest and then use them as predicates for other probes
+- /self->watched == true/
+
+
+quantize output:
+
+  com.docker.vpnki
+           value  ------------- Distribution ------------- count
+            2048 |                                         0
+            4096 |@@@@@@@                                  1
+            8192 |@@@@@@@@@@@@@@@@@@@@                     3            # there were 3 writes that took between 8192 and 16384 nanoseconds
+           16384 |@@@@@@@@@@@@@                            2
+           32768 |                                         0
+
+
+See the aggs chapter for an example of linearly quantizing the number of system calls over time

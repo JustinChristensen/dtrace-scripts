@@ -24,6 +24,10 @@ list_connect_args:
 		-i syscall::connect:entry \
 		-i syscall::connect:return
 
+.PHONY: print_syscall_probes
+print_syscall_probes:
+	$(DTRACE) -l -P syscall
+
 .PHONY: list_dtrace_consumers
 list_dtrace_consumers:
 	apropos dtrace
