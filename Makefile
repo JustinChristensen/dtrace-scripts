@@ -18,11 +18,7 @@ $(PROBES_TXT):
 
 .PHONY: list_connect_args
 list_connect_args:
-	$(DTRACE) -lv \
-		-i syscall::connect_nocancel:entry \
-		-i syscall::connect_nocancel:return \
-		-i syscall::connect:entry \
-		-i syscall::connect:return
+	$(DTRACE) -lv -i 'syscall::connect*:entry'
 
 .PHONY: print_syscall_probes
 print_syscall_probes:
