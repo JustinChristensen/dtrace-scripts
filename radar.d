@@ -8,7 +8,7 @@ inline int AF_INET6 = 30;
 this struct sockaddr *sa;
 self struct sockaddr *sa;
 self uintptr_t sap;
-self uint32_t sas;
+self uintptr_t sasp;
 this uint8_t af;
 this struct sockaddr_in *s4;
 this struct sockaddr_in6 *s6;
@@ -48,16 +48,16 @@ syscall::accept_nocancel:entry
 /arg1/
 {
     self->sap = arg1;
-    self->sas = arg2;
+    self->sasp = arg2;
 }
 
 syscall::accept:return,
 syscall::accept_nocancel:return
 /self->sap/
 {
-    this->sa = copyin(self->sap, self->sas);
+    this->sa = copyin(self->sap, *((socklen_t *) copyin(self->sasp, sizeof (socklen_t))));
     self->sap = 0;
-    self->sas = 0;
+    self->sasp = 0;
 }
 
 syscall::accept:return,
