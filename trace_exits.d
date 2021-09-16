@@ -2,7 +2,7 @@
 
 #pragma D option quiet
 
-#define ARG_LIMIT 128
+#define ARG_LIMIT 512
 
 this user_addr_t *argp;
 
@@ -39,6 +39,16 @@ syscall::exit:entry                                                             
 	this->argc--;                                                                    \
 }
 
+PRINT_ARG
+PRINT_ARG
+PRINT_ARG
+PRINT_ARG
+PRINT_ARG
+PRINT_ARG
+PRINT_ARG
+PRINT_ARG
+PRINT_ARG
+PRINT_ARG
 PRINT_ARG
 PRINT_ARG
 PRINT_ARG
