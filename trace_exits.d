@@ -6,6 +6,11 @@
 
 this user_addr_t *argp;
 
+BEGIN
+{
+    printf("%20s | %5s | %4s | command\n", "", "pid", "exit");
+}
+
 syscall::exit:entry
 {
 	this->is64Bit = curpsinfo->pr_dmodel == PR_MODEL_ILP32 ? 0 : 1;
@@ -14,7 +19,7 @@ syscall::exit:entry
     this->argc = curpsinfo->pr_argc;
     this->argv_ptr = curpsinfo->pr_argv;
 
-    printf("%Y | %3d | ", walltimestamp, args[0]);
+    printf("%20Y | %5d | %4d | ", walltimestamp, pid, args[0]);
 }
 
 syscall::exit:entry
